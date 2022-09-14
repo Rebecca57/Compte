@@ -7,15 +7,30 @@ xmlns="http://www.w3.org/1999/xhml"
 <title>Home</title>
 </head>
 <body>
+<!--  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+
+<script type="text/javascript">  
+   setTimeout(function(){  
+      location.reload();  
+      //location.reload(window.location.href +'#refreshListeCredits'); 
+	  //$('#refreshSolde').load(window.location.href+'#refreshSolde');
+	   //$('#refreshListeCredits').load(window.location.href +'#refreshListeCredits');
+   },5000); 
+
+</script> 
 <h3>Mon Compte</h3>
 <label>Nom: </label><span data-th-text="${compte.nom}"></span><br>
-<label>Solde: </label><span data-th-text="${compte.solde}" ></span><br>
+<div id="refreshSolde">
+<label>Solde: </label><span data-th-text="${compte.solde}" ></span>
+</div>
 <form action="#"  method="post" data-th-action="@{/changeSalaire}" >
 	<input type="hidden" data-th-name="id" data-th-value="${compte.id}">
 	<input type="hidden" data-th-name="nom" data-th-value="${compte.nom}">
 	<label>Salaire: </label><input data-th-field="${compte.salaire}">
 	<input type="submit" class="btn btn-sm btn-block btn-outline-danger" value="change">
 </form>
+
 <hr>
  <h3>Mes debits</h3>
  <div data-th-each="debit: ${listeDebits}">
@@ -34,6 +49,24 @@ xmlns="http://www.w3.org/1999/xhml"
 	<input type="submit" class="btn btn-sm btn-block btn-outline-danger" value="add Debit">
 </form>
 
+<hr>
+ <h3>Mes Credits</h3>
+	 <div  id="refreshListeCredits" data-th-each="credit: ${listeCredits}">
+		<form action="#"  method="post" data-th-action="@{/credit/deleteCredit}">
+			<span data-th-text="${credit.titre}"></span>
+			<span data-th-text="${credit.somme}"></span>
+			<input type="hidden" data-th-name="id" data-th-value="${credit.id}">
+			<input type="hidden" data-th-name="titre" data-th-value="${credit.titre}">
+			<input type="hidden" data-th-name="somme" data-th-value="${credit.somme}" >
+			<input type="submit" class="btn btn-sm btn-block btn-outline-danger" value="X">
+		</form>
+	</div>
+	
+<form action="#"  method="post" data-th-action="@{/credit/addCredit}" data-th-object="${creditA}">
+	<label>Titre: </label><input data-th-field="${creditA.titre}">
+	<label>Somme: </label><input data-th-field="${creditA.somme}">
+	<input type="submit" class="btn btn-sm btn-block btn-outline-danger" value="add Credit">
+</form>
 
 
 
