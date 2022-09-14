@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html
+xmlns="http://www.w3.org/1999/xhml"
+		xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+</head>
+<body>
+<h3>Mon Compte</h3>
+<label>Nom: </label><span data-th-text="${compte.nom}"></span><br>
+<label>Solde: </label><span data-th-text="${compte.solde}" ></span><br>
+<form action="#"  method="post" data-th-action="@{/changeSalaire}" >
+	<input type="hidden" data-th-name="id" data-th-value="${compte.id}">
+	<input type="hidden" data-th-name="nom" data-th-value="${compte.nom}">
+	<label>Salaire: </label><input data-th-field="${compte.salaire}">
+	<input type="submit" class="btn btn-sm btn-block btn-outline-danger" value="change">
+</form>
+<hr>
+ <h3>Mes debits</h3>
+ <div data-th-each="debit: ${listeDebits}">
+	<form action="#"  method="post" data-th-action="@{/debit/deleteDebit}">
+		<span data-th-text="${debit.titre}"></span>
+		<span data-th-text="${debit.somme}"></span>
+		<input type="hidden" data-th-name="id" data-th-value="${debit.id}">
+		<input type="hidden" data-th-name="titre" data-th-value="${debit.titre}">
+		<input type="hidden" data-th-name="somme" data-th-value="${debit.somme}" >
+		<input type="submit" class="btn btn-sm btn-block btn-outline-danger" value="X">
+	</form>
+</div>
+<form action="#"  method="post" data-th-action="@{/debit/addDebit}" data-th-object="${debitA}">
+	<label>Titre: </label><input data-th-field="${debitA.titre}">
+	<label>Somme: </label><input data-th-field="${debitA.somme}">
+	<input type="submit" class="btn btn-sm btn-block btn-outline-danger" value="add Debit">
+</form>
+
+
+
+
+</body>
+</html>
